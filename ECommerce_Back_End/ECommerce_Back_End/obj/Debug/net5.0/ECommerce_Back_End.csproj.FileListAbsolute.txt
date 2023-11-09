@@ -54,3 +54,4 @@ D:\Projects\SDLC E_Commerce\ECommerce_Back_End\ECommerce_Back_End\obj\Debug\net5
 D:\Projects\SDLC E_Commerce\ECommerce_Back_End\ECommerce_Back_End\obj\Debug\net5.0\ref\ECommerce_Back_End.dll
 D:\Projects\SDLC E_Commerce\ECommerce_Back_End\ECommerce_Back_End\obj\Debug\net5.0\ECommerce_Back_End.pdb
 D:\Projects\SDLC E_Commerce\ECommerce_Back_End\ECommerce_Back_End\obj\Debug\net5.0\ECommerce_Back_End.genruntimeconfig.cache
+D:\Projects\SDLC E_Commerce\ECommerce_Back_End\ECommerce_Back_End\bin\Debug\net5.0\Microsoft.IdentityModel.Abstractions.dll

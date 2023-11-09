@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using ECommerce_Back_End.Models;
 using Microsoft.EntityFrameworkCore;
 using ECommerce_Back_End.Repository;
+using ECommerce_Back_End.Helpers;
 
 namespace ECommerce_Back_End
 {
@@ -33,7 +34,12 @@ namespace ECommerce_Back_End
                     options => options.UseSqlServer("Server=.;Database=ECommerceDb;Integrated Security=True;")
                 );
 
+            //Adding CORS
+            services.AddCors();
+
             services.AddScoped<ICategoryRepository<Category>, CategoryRepository>();
+            services.AddScoped<IUserRepository<User>, UserRepository>();
+            services.AddScoped<IJWTService, JWTService>();
 
             services.AddControllers();
         }
@@ -49,6 +55,13 @@ namespace ECommerce_Back_End
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(options => options
+                .WithOrigins(new [] { "http://localhost:3000" })
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials()
+            );
 
             app.UseAuthorization();
 
