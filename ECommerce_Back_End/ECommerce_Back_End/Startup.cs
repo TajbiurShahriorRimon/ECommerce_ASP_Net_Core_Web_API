@@ -39,6 +39,8 @@ namespace ECommerce_Back_End
 
             services.AddScoped<ICategoryRepository<Category>, CategoryRepository>();
             services.AddScoped<IUserRepository<User>, UserRepository>();
+            services.AddScoped<IProductRepository<Product>, ProductRepository>();
+
             services.AddScoped<IJWTService, JWTService>();
 
             services.AddControllers();

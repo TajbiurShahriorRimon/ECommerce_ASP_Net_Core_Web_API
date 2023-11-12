@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ECommerce_Back_End.Models
@@ -13,7 +14,7 @@ namespace ECommerce_Back_End.Models
         public string Name { get; set; }
         [Required]
         public string Email { get; set; }
-        [Required]
+        [Required, JsonIgnore]
         public string Password { get; set; }
         [Required]
         public string City { get; set; }

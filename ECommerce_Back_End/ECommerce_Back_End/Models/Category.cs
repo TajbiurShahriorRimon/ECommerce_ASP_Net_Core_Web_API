@@ -10,5 +10,6 @@ namespace ECommerce_Back_End.Models
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public bool IsActive { get; set; }
+        public IList<Product> Products { get; set; }
     }
 }
