@@ -1,4 +1,4 @@
-import UserRegistrationBody from "../components/Body/UserRegistrationBody"; 
+import UserRegistrationBody from "../Body/UserRegistrationBody"; 
 
 function UserRegistration(){
     return(

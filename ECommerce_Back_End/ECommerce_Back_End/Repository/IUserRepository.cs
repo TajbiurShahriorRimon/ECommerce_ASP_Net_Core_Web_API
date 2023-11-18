@@ -13,6 +13,7 @@ namespace ECommerce_Back_End.Repository
         Task InsertAsync(User user);
         Task<TEntity> GetUserByEmailAsync(string email);
         Task<TEntity> GetByIdAsync(int userId);
+        Task<bool> CheckIfEmailExistsAsync(string userEmail);
         //Task UpdateStatusAsync(int id);
     }
 }

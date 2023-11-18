@@ -80,8 +80,14 @@ namespace ECommerce_Back_End.Controllers
 
         [HttpPost]
         [Route("", Name = "CreateUserPath")]
-        public async Task<IActionResult> Create([FromBody] User user)
+        public async Task<IActionResult> Create(User user)
         {
+            var signal = await _userRepository.CheckIfEmailExistsAsync(user.Email);
+            //If the email already exists, then we will not let the user to be registered.
+            if(signal == true)
+            {
+                return Conflict();
+            }
             await _userRepository.InsertAsync(user);
             string url = Url.Link("CreateUserPath", new { id = user.UserId });
             return Created(url, user);

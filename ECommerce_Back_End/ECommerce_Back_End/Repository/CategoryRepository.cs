@@ -28,6 +28,7 @@ namespace ECommerce_Back_End.Repository
 
         public async Task InsertAsync(Category category)
         {
+            category.IsActive = true;
             await this._dbContext.Categories.AddAsync(category);
             await _dbContext.SaveChangesAsync();
         }

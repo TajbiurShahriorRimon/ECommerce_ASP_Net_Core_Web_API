@@ -41,8 +41,9 @@ import {BrowserRouter as Router, Link, Route, Switch, Routes} from 'react-router
 import HomePage from "../src/components/Page/HomePage";
 import Login from "./components/Page/Login";
 import HomePage1 from "./Page/HomePage";
-import UserRegistration from './Page/UserRegistration';
-import ProductDetailsPage from './Page/ProductDetailsPage';
+import UserRegistration from './components/Page/UserRegistrationPage';
+import ProductDetailsPage from './components/Page/ProductDetailsPage';
+import CategoryAddPage from './components/Page/CategoryAddPage';
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
           <Route path='/index' element={<HomePage1/>}/>
           <Route path='/user/registration' element={<UserRegistration/>}/>
           <Route path='/product/productDetils' element={<ProductDetailsPage/>}/>
+          <Route path='/category/add' element={<CategoryAddPage/>}/>
         </Routes>
       </Router>
     </div>

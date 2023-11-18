@@ -16,6 +16,13 @@ namespace ECommerce_Back_End.Repository
             this._dbContext = dbContext;
         }
 
+
+        public async Task<bool> CheckIfEmailExistsAsync(string userEmail)
+        {
+            var user = await _dbContext.Users.Where(x => x.Email == userEmail).FirstOrDefaultAsync();
+            return user != null ? true : false;
+        }
+
         public async Task<User> GetByIdAsync(int userId)
         {
             var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.UserId == userId);

@@ -1,11 +1,11 @@
-import SiteHome from "../components/Body/HomeBody";
+import HomeBody from "../components/Body/HomeBody";
 import Navbar from '../components/Navbar/Navbar';
 
 function Login(){
     return(
         <div>
             <Navbar/>
-            <SiteHome/>
+            <HomeBody/>
         </div>
     )
 }

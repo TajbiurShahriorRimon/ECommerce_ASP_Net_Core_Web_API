@@ -1,5 +1,5 @@
-import ProductDetailsBody from '../components/Body/ProductDetailsBody';
-import Navbar from '../components/Navbar/Navbar';
+import ProductDetailsBody from '../Body/ProductDetailsBody';
+import Navbar from '../Navbar/Navbar';
 
 function ProductDetailsPage(){
     return(

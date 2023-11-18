@@ -14,10 +14,12 @@ namespace ECommerce_Back_End.Models
         public string Name { get; set; }
         [Required]
         public string Email { get; set; }
-        [Required, JsonIgnore]
+        [Required]
         public string Password { get; set; }
         [Required]
         public string City { get; set; }
+        [Required]
+        public string StreetAddress { get; set; }
         [Required]
         public string Province { get; set; }
         [Required]
@@ -26,5 +28,7 @@ namespace ECommerce_Back_End.Models
         public string Phone { get; set; }
         [Required]
         public string Type { get; set; }
+        [Required]
+        public string Gender { get; set; }
     }
 }
