@@ -8,12 +8,9 @@ namespace ECommerce_Back_End.Repository
 {
     public interface IUserRepository<TEntity> where TEntity : class
     {
-        /*Task<IList<TEntity>> GetAllAsync();
-        Task<TEntity> GetAsync(int id);*/
-        Task InsertAsync(User user);
+        Task<TEntity> InsertAsync(User user);
         Task<TEntity> GetUserByEmailAsync(string email);
         Task<TEntity> GetByIdAsync(int userId);
         Task<bool> CheckIfEmailExistsAsync(string userEmail);
-        //Task UpdateStatusAsync(int id);
     }
 }

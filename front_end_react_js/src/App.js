@@ -44,6 +44,7 @@ import HomePage1 from "./Page/HomePage";
 import UserRegistration from './components/Page/UserRegistrationPage';
 import ProductDetailsPage from './components/Page/ProductDetailsPage';
 import CategoryAddPage from './components/Page/CategoryAddPage';
+import VendorRegistrationPage from './components/Page/VendorRegistrationPage';
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
           <Route path='/user/registration' element={<UserRegistration/>}/>
           <Route path='/product/productDetils' element={<ProductDetailsPage/>}/>
           <Route path='/category/add' element={<CategoryAddPage/>}/>
+          <Route path='/vendor/registration' element={<VendorRegistrationPage/>}/>
         </Routes>
       </Router>
     </div>

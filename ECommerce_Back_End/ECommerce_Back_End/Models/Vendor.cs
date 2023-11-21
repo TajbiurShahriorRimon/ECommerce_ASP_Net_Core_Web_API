@@ -10,16 +10,9 @@ namespace ECommerce_Back_End.Models
     {
         public int VendorId { get; set; }
         public string RegistrationNumber { get; set; }
-        public string ShopPhone { get; set; }
         public string ShopName { get; set; }
-        public string ShopEmail { get; set; }
-        [Required]
-        public string City { get; set; }
-        [Required]
-        public string StreetAddress { get; set; }
-        [Required]
-        public string Province { get; set; }
-        [Required]
-        public string PostalCode { get; set; }
+
+        public int UserId { get; set; }
+        public User User { get; set; }
     }
 }

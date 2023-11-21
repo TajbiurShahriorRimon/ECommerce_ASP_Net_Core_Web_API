@@ -16,11 +16,14 @@ namespace ECommerce_Back_End.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository<User> _userRepository;
+        private readonly ILoginRepository<Login> _loginRepository;
         private readonly IJWTService _jwtService;
 
-        public UserController(IUserRepository<User> userRepository, IJWTService jwtService)
+        public UserController(IUserRepository<User> userRepository, 
+            IJWTService jwtService, ILoginRepository<Login> loginRepository)
         {
             _userRepository = userRepository;
+            _loginRepository = loginRepository;
             _jwtService = jwtService;
         }
 
@@ -89,6 +92,16 @@ namespace ECommerce_Back_End.Controllers
                 return Conflict();
             }
             await _userRepository.InsertAsync(user);
+
+            //Inserting login information
+            var loginData = new Login
+            {
+                Email = user.Email,
+                Password = user.Password,
+
+            };
+            await _loginRepository.InsertAsync(loginData);
+
             string url = Url.Link("CreateUserPath", new { id = user.UserId });
             return Created(url, user);
         }

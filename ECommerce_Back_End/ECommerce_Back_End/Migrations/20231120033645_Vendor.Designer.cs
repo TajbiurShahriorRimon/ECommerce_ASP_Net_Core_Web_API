@@ -3,14 +3,16 @@ using ECommerce_Back_End.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ECommerce_Back_End.Migrations
 {
     [DbContext(typeof(ECommerceDbContext))]
-    partial class ECommerceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231120033645_Vendor")]
+    partial class Vendor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -164,8 +166,6 @@ namespace ECommerce_Back_End.Migrations
 
                     b.HasKey("VendorId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Vendors");
                 });
 
@@ -186,17 +186,6 @@ namespace ECommerce_Back_End.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("Vendor");
-                });
-
-            modelBuilder.Entity("ECommerce_Back_End.Models.Vendor", b =>
-                {
-                    b.HasOne("ECommerce_Back_End.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ECommerce_Back_End.Models.Category", b =>

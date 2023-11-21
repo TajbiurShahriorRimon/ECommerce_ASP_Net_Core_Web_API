@@ -20,5 +20,7 @@ namespace ECommerce_Back_End.Models
         public DbSet<Product> Products { get; set; }
 
         public DbSet<Vendor> Vendors { get; set; }
+
+        public DbSet<Login> Logins { get; set; }
     }
 }

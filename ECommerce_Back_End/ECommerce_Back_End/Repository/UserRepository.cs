@@ -35,10 +35,11 @@ namespace ECommerce_Back_End.Repository
             return user;
         }
 
-        public async Task InsertAsync(User user)
+        public async Task<User> InsertAsync(User user)
         {
             await this._dbContext.Users.AddAsync(user);
             await _dbContext.SaveChangesAsync();
+            return user;
         }
     }
 }
