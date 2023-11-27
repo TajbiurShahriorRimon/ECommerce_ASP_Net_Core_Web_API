@@ -28,7 +28,9 @@ namespace ECommerce_Back_End.Controllers
             {
                 //generating an unique file name.
                 string uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(product.File.FileName);
-                product.FilePath = Path.Combine(@"D:\Projects\SDLC E_Commerce\ECommerce_Back_End\ECommerce_Back_End\Photos\Product", uniqueFileName);
+
+                //now combine the whole path along with filename.
+                product.FilePath = Path.Combine("Photos/Product", uniqueFileName);
 
                 using (Stream stream = new FileStream(product.FilePath, FileMode.Create))
                 {

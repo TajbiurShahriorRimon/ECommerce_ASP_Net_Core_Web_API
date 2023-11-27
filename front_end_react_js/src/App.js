@@ -45,6 +45,10 @@ import UserRegistration from './components/Page/UserRegistrationPage';
 import ProductDetailsPage from './components/Page/ProductDetailsPage';
 import CategoryAddPage from './components/Page/CategoryAddPage';
 import VendorRegistrationPage from './components/Page/VendorRegistrationPage';
+import ProductAddPage from './components/Page/ProductAddPage';
+import ProductAddBody from './components/Body/ProductCreateBody';
+import TestBody from './components/Body/TestBody';
+
 
 function App() {
   return (
@@ -58,6 +62,10 @@ function App() {
           <Route path='/product/productDetils' element={<ProductDetailsPage/>}/>
           <Route path='/category/add' element={<CategoryAddPage/>}/>
           <Route path='/vendor/registration' element={<VendorRegistrationPage/>}/>
+          <Route path='/product/add' element={<ProductAddPage/>}/>
+
+          <Route path='/product/add1' element={<ProductAddBody/>}/>
+          <Route path='/product/add2' element={<TestBody/>}/>
         </Routes>
       </Router>
     </div>

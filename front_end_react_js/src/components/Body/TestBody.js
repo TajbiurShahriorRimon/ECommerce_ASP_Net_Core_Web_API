@@ -2,6 +2,68 @@ import React, { useState, useEffect } from 'react';
 import {Button,Form,FormGroup,Label,Container,Input,Row,Col,FormFeedback} from "reactstrap";
 import base_url from '../../Api/apiUrl';
 
+const ProductCreation = () => {
+  const [productName, setProductName] = useState('');
+  const [file, setFile] = useState(null);
+  const [createStatus, setCreateStatus] = useState('');
+
+    const handleProductNameChange = (event) => {
+        const { value } = event.target;
+        setProductName(value);
+    };    
+
+  const handleFileChange = (event) => {
+    const selectedFile = event.target.files[0];
+    setFile(selectedFile);
+
+  };
+
+  const handleCreateProduct = async () => {
+    alert("dssd");
+    if (!productName || !file) {
+      setCreateStatus('Please enter a product name and select a file.');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('name', productName);
+    formData.append('id', 1); // Example ID, adjust as needed
+    formData.append('File', file);
+    formData.append('description', "description");
+    formData.append('vendorId', 2);
+    formData.append('categoryId', 1);
+    formData.append('price', 200);
+    formData.append('filePath', '');
+    formData.append('status', 'active');
+
+
+    try {
+      const response = await fetch(base_url+'product', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (response.ok) {
+        setCreateStatus('Product created successfully.');
+      } else {
+        setCreateStatus('Failed to create product.');
+      }
+    } catch (error) {
+      console.error('Error creating product:', error);
+      setCreateStatus('Error creating product.');
+    }
+  };
+
+  return (
+    <div>
+        <input type="text" placeholder="Enter Product Name" value={productName} onChange={handleProductNameChange} />
+        <input type="file" onChange={handleFileChange} />
+        <button onClick={handleCreateProduct}>Create Product</button>
+      <p>{createStatus}</p>
+    </div>
+  );
+};
+
 function ProductCreation1(){
     const [productName, setProductName] = useState('');
     const [file, setFile] = useState(null);
