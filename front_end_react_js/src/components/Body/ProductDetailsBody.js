@@ -6,10 +6,11 @@ import {Badge} from "reactstrap";
 //import NumericInput from "react-numeric-input";
 import StarRatings from 'react-star-ratings';
 import axios from "axios";
+import base_url from "../../Api/apiUrl";
 import {Link} from "react-router-dom";
-//import un_auth from "../../unAuthRedirect/unAuth";
+import un_auth from "../../unAuthRedirect/unAuth";
 
-class ProductDetailsBody extends Component{
+class SiteProductDetails extends Component{
     constructor(props) {
         super(props);
     }
@@ -21,6 +22,11 @@ class ProductDetailsBody extends Component{
             thumbnail: "",
             description: "",
             status: "",
+            imageFilePath: "",
+            // categoryId: "",
+            // categoryName: "",
+            // vendorId: "",
+            // shopName: ""
             category: { //another object
                 categoryName: "",
             },
@@ -32,13 +38,74 @@ class ProductDetailsBody extends Component{
         urlParameter: "",
         unit: 1,
         cartButtonHidden: false,
-        cartBtn: (
-            // change... <button className="btn-outline-danger btn" hidden={localStorage.getItem("userType_session") == "customer" ? false : true}>
-            <button className="btn-outline-danger btn">
-                <strong>Add To Cart</strong> <ImCart/>
-            </button>
-        ),
+        // cartBtn: (
+        //     <button className="btn-outline-danger btn" hidden={localStorage.getItem("userType_session") == "customer" ? false : true}>
+        //         <strong>Add To Cart</strong> <ImCart/>
+        //     </button>
+        // ), change...
         ratingStar: 0
+    }
+
+    async componentDidMount() {
+        /*We have to make the Cart button enable or disable which is to add or subtract item from the cart*/
+        if(localStorage.getItem("shoppingCart") != null){
+            var ara = JSON.parse(localStorage.getItem("shoppingCart") || '{}')
+            //alert("not null, length: "+ara.length);
+            console.log(ara);
+            if(ara.length > 0){
+                var i = 0;
+                console.log(localStorage.getItem("shoppingCart"));
+
+                for (i = 0; i < ara.length; i++){
+                    if(ara[i].product_id == window.location.pathname.split("/").pop()){
+                        //alert("found");
+                        this.state.unit = ara[i].unit;
+                        this.setState({
+                            cartBtn: (
+                                <button className="btn-outline-primary btn-info btn"
+                                    hidden={localStorage.getItem("userType_session") == "customer" ? false : true}>
+                                    <strong>Update Cart</strong> <ImCart/>
+                                </button>
+                            )
+                        })
+                        break;
+                    }
+                }
+            }
+        }
+
+        //console.log(window.location.pathname.split("/").pop());
+        var id = window.location.pathname.split("/").pop();
+        const resp = await axios.get(`${base_url}product/${id}`);
+
+        console.log(resp.data);
+        if (resp.status === 200){
+            this.setState({
+                result: resp.data,
+                loading: false,
+                urlParameter: id
+            })
+        }
+        //if the product does not exists then redirect to login page
+        else if(resp.status == 204){
+            alert("No product Found")
+            window.location.href = un_auth;
+        }
+
+        //Now we have to set the rating star
+        // const result = await axios.get(`${base_url}product/getReviewsAndRatings/${id}`);
+        // console.log(result.data);
+        // if(result.status == 200){
+        //     if(result.data.length > 0){
+        //         var avgRating = 0;
+        //         for(let i = 0; i < result.data.length; i++){
+        //             avgRating += result.data[i].rating;
+        //         }
+        //         this.setState({
+        //             ratingStar: avgRating / result.data.length
+        //         })
+        //     }
+        // }
     }
 
     addToCart = (e) => {
@@ -153,6 +220,7 @@ class ProductDetailsBody extends Component{
         var thumb = "data:image/png;base64,"+this.state.result.thumbnail;
         return(
             <div className="container">
+              {/* <img src={require("https://localhost:44352/"+this.state.result.imageFilePath)} style={{ maxWidth: '200px' }} /> */}
                 <br/> <br/>
                 <div className="form-control">
                     <div className="row">
@@ -170,14 +238,14 @@ class ProductDetailsBody extends Component{
                                                          }
                                                      }
                                                 />*/}
-                                                {/* <img src={this.state.result.thumbnail == null ? imagePath : thumb} */}
-                                                <img src={imagePath}
+                                                {/* <img src={this.state.result.thumbnail == null ? imagePath : thumb}
                                                      style={
                                                          {  height: 300,
                                                              width: 250
                                                          }
                                                      }
-                                                />
+                                                /> */}
+                                                
                                             </TransformComponent>
                                             <div>
                                                 <ButtonGroup className="me-2" aria-label="Second group">
@@ -188,30 +256,29 @@ class ProductDetailsBody extends Component{
                                             </div>
                                         </React.Fragment>
                                     )}
-                                </TransformWrapper>
+                                </TransformWrapper>                                
                             </div>
                             <br/>
                         </div>
 
                         <div className="col-md-7">
                             <div>
-                                <label><strong>Product Name:</strong> Apple </label>
+                                <label><strong>Product Name:</strong> {this.state.result.productName}</label>
                             </div>
                             <div>
-                                <label><strong>Price:</strong> 30 <label style={{fontSize: 20}}></label></label>
+                                <label><strong>Price:</strong> <label style={{fontSize: 20}}>{this.state.result.price}</label></label>
                             </div>
                             <div>
-                                <label><strong>Category</strong>: <Badge pill bg="success"><strong> Fruit </strong> </Badge></label>
+                                <label><strong>Category</strong>: <Badge pill bg="success"><strong> {this.state.result.category.categoryName}</strong> </Badge></label>
                             </div>
                             <div>
-                                <label><strong>Vendor:</strong> Walmart </label>
+                                <label><strong>Vendor:</strong> {this.state.result.vendor.shopName} </label>
                             </div>
                             <div>
-                                <label style={{fontSize:"1.2em"}}><strong>Rating:</strong> 3.3 </label>
+                                <label style={{fontSize:"1.2em"}}><strong>Rating:</strong> {this.state.ratingStar == 0 ? "No Rating" : this.state.ratingStar} </label>
                                 <br/>
                                 <StarRatings
-                                    // rating={this.state.ratingStar}
-                                    rating={3.3}
+                                    rating={this.state.ratingStar}
                                     starDimension="25px"
                                     starSpacing="5px"
                                     starRatedColor="#cee009"
@@ -220,18 +287,15 @@ class ProductDetailsBody extends Component{
                             <br/>
 
                             <div className="row"
-                                //  hidden={
-                                //      this.state.result.status == "inactive" ? true :
-                                //          localStorage.getItem("userType_session") == "customer" ? false : true
+                                 hidden={
+                                     this.state.result.status == "inactive" ? true :
+                                         localStorage.getItem("userType_session") == "customer" ? false : true
 
-                                //  }
+                                 }
                             >
                                 <div className="col-md-2" onClick={this.addToCart}>
-                                    {/*change... {this.state.cartBtn} */}
-                                    <button className="btn-outline-danger btn">
-                                        <strong>Add To Cart</strong> <ImCart/>
-                                    </button>
-                                </div>                                
+                                    {this.state.cartBtn}
+                                </div>
                                 <div className="col-md-4">
                                     <span>
                                         {/*<NumericInput size={2} min={0} max={5} value={this.state.unit} type="up-down"
@@ -272,32 +336,32 @@ class ProductDetailsBody extends Component{
                             <div>
                                 <h2><u>Product Description</u></h2>
                                 <p>
-                                    {/* {this.state.result.description} */}
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                    {this.state.result.description}
+                                    {/*Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                                     Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
                                     when an unknown printer took a galley of type and scrambled it to make a type specimen book.
                                     It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
                                     It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-                                    and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                    and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.*/}
                                 </p>
                             </div>
                             <div className="d-grid gap-2 text-danger">
 
                                     <Button size="lg">
-                                        {/*change... <Link to={`/product/allReviews/${this.state.urlParameter}`}> */}
-                                        <Link>
+                                        <Link to={`/product/allReviews/${this.state.urlParameter}`}>
                                             <button className="btn btn" style={{backgroundColor: "green", maxWidth: 100}}>
                                                 Check Review
                                             </button>
                                         </Link>
-                                    </Button>                                    
+                                    </Button>
                             </div>
                         </div>
                     </div>
                 </div>
+                
             </div>
         )
     }
 }
 
-export default ProductDetailsBody;
+export default SiteProductDetails;

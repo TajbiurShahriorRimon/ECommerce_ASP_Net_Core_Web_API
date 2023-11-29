@@ -42,12 +42,14 @@ import HomePage from "../src/components/Page/HomePage";
 import Login from "./components/Page/Login";
 import HomePage1 from "./Page/HomePage";
 import UserRegistration from './components/Page/UserRegistrationPage';
-import ProductDetailsPage from './components/Page/ProductDetailsPage';
 import CategoryAddPage from './components/Page/CategoryAddPage';
 import VendorRegistrationPage from './components/Page/VendorRegistrationPage';
 import ProductAddPage from './components/Page/ProductAddPage';
 import ProductAddBody from './components/Body/ProductCreateBody';
+import ProductDetailsPage from './components/Page/ProductDetailsPage';
 import TestBody from './components/Body/TestBody';
+//import ProductSearchPage12 from './components/Page/ProductSearchPage';
+import ProductSearchBodyTest from "./components/Body/ProductSearchBodyTest"
 
 
 function App() {
@@ -59,13 +61,15 @@ function App() {
           <Route path='/login' element={<Login/>}/>
           <Route path='/index' element={<HomePage1/>}/>
           <Route path='/user/registration' element={<UserRegistration/>}/>
-          <Route path='/product/productDetils' element={<ProductDetailsPage/>}/>
           <Route path='/category/add' element={<CategoryAddPage/>}/>
           <Route path='/vendor/registration' element={<VendorRegistrationPage/>}/>
-          <Route path='/product/add' element={<ProductAddPage/>}/>
 
-          <Route path='/product/add1' element={<ProductAddBody/>}/>
-          <Route path='/product/add2' element={<TestBody/>}/>
+          {/* Product */}
+          <Route path='/product/add' element={<ProductAddPage/>}/>
+          <Route path='/product/details/:id' element={<ProductDetailsPage/>}/>
+          <Route path="/product/search/:key" element={<ProductSearchBodyTest/>}/>
+
+
         </Routes>
       </Router>
     </div>

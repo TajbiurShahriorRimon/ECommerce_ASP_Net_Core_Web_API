@@ -30,7 +30,7 @@ namespace ECommerce_Back_End.Controllers
                 string uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(product.File.FileName);
 
                 //now combine the whole path along with filename.
-                product.FilePath = Path.Combine("Photos/Product", uniqueFileName);
+                product.FilePath = Path.Combine("Photos/Product/", uniqueFileName);
 
                 using (Stream stream = new FileStream(product.FilePath, FileMode.Create))
                 {
@@ -58,6 +58,13 @@ namespace ECommerce_Back_End.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var data = await _productRepository.GetAsync(id);
+            return Ok(data);
+        }
+
+        [HttpGet("search/{key}")]
+        public async Task<IActionResult> Search(string key)
+        {
+            var data = await _productRepository.SearchAsync(key);
             return Ok(data);
         }
     }

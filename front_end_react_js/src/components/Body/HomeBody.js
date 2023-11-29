@@ -38,7 +38,7 @@ const HomeBody = () => {
                         <Card.Title>{item.productName}</Card.Title>
                         {/*<Card.Text>Lorem Ipsum Telle Amore</Card.Text>*/}
                         {/*<Button variant="primary" href=''>Edit</Button>*/}
-                        <Link to={'/'}>
+                        <Link to={`/product/details/`+item.productId}>
 
                             <HiInformationCircle style={{fontSize:"2em", float: "right"}}/>
                         </Link>
